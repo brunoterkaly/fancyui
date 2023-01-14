@@ -3,6 +3,22 @@
 
 <head>
   <style>
+    /* Center container elements */
+    .form-container,
+    .table-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Width of container elements */
+    .form-container,
+    .table-container,
+    form {
+      width: 70%;
+    }
+
+    /* Other styles */
     table#dataGrid tr {
       cursor: pointer;
     }
@@ -27,11 +43,6 @@
       padding: 1rem;
       border: 1px solid grey;
     }
-
-    .form-container,
-    .table-container {
-      width: 50%;
-    }
   </style>
   <meta charset="utf-8">
   <title></title>
@@ -51,7 +62,7 @@
 </head>
 
 <body>
-<!-- 
+  <!-- 
   Search area
  -->
   <div class="form-container">
@@ -63,11 +74,9 @@
       <span id="error-message" style="color: red; display: none; margin-left: 8px; font-weight: 700;"></span>
     </form>
   </div>
-
-<!-- 
+  <!-- 
   The search results table
  -->
-  <!-- <div class="table-container table-responsive"> -->
   <div class="table-container">
     <table class="table scrollable-table" id="dataGrid">
       <thead>
@@ -79,7 +88,7 @@
       <tbody></tbody>
     </table>
 
-<!-- 
+    <!-- 
   The Form that needs to save
  -->
     <form class="bg-light p-3 border">
