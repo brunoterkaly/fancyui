@@ -51,14 +51,22 @@
 </head>
 
 <body>
+<!-- 
+  Search area
+ -->
   <div class="form-container">
     <form>
       <div class="form-group">
         <input type="text" class="form-control" id="searchBox" placeholder="Search..." />
       </div>
       <input type="button" class="btn btn-primary" id="searchBtn" value="Search" />
+      <span id="error-message" style="color: red; display: none; margin-left: 8px; font-weight: 700;"></span>
     </form>
   </div>
+
+<!-- 
+  The search results table
+ -->
   <!-- <div class="table-container table-responsive"> -->
   <div class="table-container">
     <table class="table scrollable-table" id="dataGrid">
@@ -70,6 +78,10 @@
       </thead>
       <tbody></tbody>
     </table>
+
+<!-- 
+  The Form that needs to save
+ -->
     <form class="bg-light p-3 border">
       <div class="form-group row">
         <label for="name" class="col-sm-2 col-form-label">Name:</label>
@@ -136,7 +148,7 @@
       $("#searchBtn").click(searchHandler);
       $("#dataGrid tbody").on("click", "tr", rowClickHandler);
 
-      function searchHandler() {
+      function searchHandlerOld() {
         var searchText = $("#searchBox").val();
         if (searchText === '') {
           $('#dataGrid').hide();
@@ -148,9 +160,29 @@
         addRowsToGrid(searchResults.slice(0, 3));
         if ($('#dataGrid tbody tr').length <= 0) {
           $('#dataGrid').hide();
-          alert("No matches found.");
+          $("#error-message").text("No matches found.").show();
         } else {
           $('#dataGrid').show();
+          $("#error-message").hide();
+        }
+      }
+      function searchHandler() {
+        var searchText = $("#searchBox").val();
+        if (searchText === '') {
+          $('#dataGrid').hide();
+          $("#error-message").hide();
+          clearGrid();
+          return;
+        }
+        var searchResults = filterData(searchText);
+        clearGrid();
+        addRowsToGrid(searchResults.slice(0, 3));
+        if ($('#dataGrid tbody tr').length <= 0) {
+          $('#dataGrid').hide();
+          $("#error-message").text("No matches found.").show();
+        } else {
+          $('#dataGrid').show();
+          $("#error-message").hide();
         }
       }
       function filterData(searchText) {
