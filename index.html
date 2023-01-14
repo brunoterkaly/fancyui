@@ -136,9 +136,17 @@
 
         function searchHandler() {
           var searchText = $("#searchBox").val();
+          if (searchText === '') {
+            $('#dataGrid').hide();
+            clearGrid();
+            return;
+          }
           var searchResults = filterData(searchText);
           clearGrid();
           addRowsToGrid(searchResults.slice(0, 3));
+          if ($('#dataGrid tbody tr').length > 0) {
+            $('#dataGrid').show();
+          }
         }
 
         function filterData(searchText) {
@@ -169,6 +177,8 @@
           $("#name").val($(this).find("td:eq(0)").text());
           $("#age").val($(this).find("td:eq(1)").text());
         }
+        $('#dataGrid').hide();
+        
         $(document).keyup(function(event) {
           var selectedRow = $("#dataGrid tbody tr.selected");
           if (event.keyCode === 38) { // up arrow key
