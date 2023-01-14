@@ -5,28 +5,40 @@
       table#dataGrid tr {
         cursor: pointer;
       }
-
-      table#dataGrid tr.selected {
-        background-color: #007bff;
-        color: #ffffff;
-      }
-
+   
+      table#dataGrid tr.selected {}
+   
       .scrollable-table {
         max-height: 3 * 40px;
         /* 3 rows */
         overflow-y: scroll;
       }
-
+   
       table#dataGrid tr:nth-child(n+4) {
         display: none;
       }
-
+   
       form {
         background-color: lightgray;
         padding: 1rem;
         border: 1px solid grey;
       }
-      .form-container, .table-container{ width: 50%; }
+   
+      .form-container,
+      .table-container {
+        width: 50%;
+      }
+   
+      body {
+        display: flex;
+        justify-content: center;
+      }
+   
+      .form-container,
+      .table-container {
+        width: 66%;
+        /* 2/3 of the width */
+      }
     </style>
     <meta charset="utf-8">
     <title></title>
@@ -178,7 +190,7 @@
           $("#age").val($(this).find("td:eq(1)").text());
         }
         $('#dataGrid').hide();
-        
+
         $(document).keyup(function(event) {
           var selectedRow = $("#dataGrid tbody tr.selected");
           if (event.keyCode === 38) { // up arrow key
