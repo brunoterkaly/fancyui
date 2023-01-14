@@ -1,229 +1,234 @@
 <!doctype html>
 <html class="no-js" lang="">
-  <head>
-    <style>
-      table#dataGrid tr {
-        cursor: pointer;
-      }
 
-      table#dataGrid tr.selected {
-        background-color: #007bff;
-        color: #ffffff;
-      }
+<head>
+  <style>
+    table#dataGrid tr {
+      cursor: pointer;
+    }
 
-      .scrollable-table {
-        max-height: 3 * 40px;
-        /* 3 rows */
-        overflow-y: scroll;
-      }
+    table#dataGrid tr.selected {
+      background-color: #007bff;
+      color: #ffffff;
+    }
 
-      table#dataGrid tr:nth-child(n+4) {
-        display: none;
-      }
+    .scrollable-table {
+      max-height: 3 * 40px;
+      /* 3 rows */
+      overflow-y: scroll;
+    }
 
-      form {
-        background-color: lightgray;
-        padding: 1rem;
-        border: 1px solid grey;
-      }
-      .form-container, .table-container{ width: 50%; }
-    </style>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:title" content="">
-    <meta property="og:type" content="">
-    <meta property="og:url" content="">
-    <meta property="og:image" content="">
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="apple-touch-icon" href="icon.png">
-    <!-- Place favicon.ico in the root directory -->
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <meta name="theme-color" content="#fafafa">
-  </head>
-  <body>
-    <div class="form-container">
-      <form>
-        <div class="form-group">
-          <input type="text" class="form-control" id="searchBox"
-            placeholder="Search..." />
-        </div>
-        <input type="button" class="btn btn-primary" id="searchBtn"
-          value="Search" />
-      </form>
-    </div>
-    <!-- <div class="table-container table-responsive"> -->
-    <div class="table-container">
-      <table class="table scrollable-table" id="dataGrid">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Age</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <form class="bg-light p-3 border">
-        <div class="form-group row">
-          <label for="name" class="col-sm-2 col-form-label">Name:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="name">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="age" class="col-sm-2 col-form-label">Age:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="age">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="email" class="col-sm-2 col-form-label">Email:</label>
-          <div class="col-sm-10">
-            <input type="email" class="form-control" id="email">
-          </div>
-        </div>
-        <div class="form-group row">
-          <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </div>
-      </form>
-    </div>
-    <script src="js/vendor/modernizr-3.11.2.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-      var data = [{
-          name: "Emily Davis",
-          age: 28
-        }, {
-          name: "Jacob Brown",
-          age: 40
-        }, {
-          name: "Michael Garcia",
-          age: 35
-        }, {
-          name: "Samantha Wilson",
-          age: 29
-        }, {
-          name: "Emily Rodriguez",
-          age: 21
-        }, {
-          name: "Joshua Hernandez",
-          age: 38
-        }, {
-          name: "Ashley Lopez",
-          age: 19
-        }, {
-          name: "Brian Gonzalez",
-          age: 42
-        }, {
-          name: "Amanda Perez",
-          age: 27
-        }
-        // more data here
-      ];
-      $(document).ready(function() {
-        $("#searchBtn").click(searchHandler);
-        $("#dataGrid tbody").on("click", "tr", rowClickHandler);
+    table#dataGrid tr:nth-child(n+4) {
+      display: none;
+    }
 
-        function searchHandler() {
-          var searchText = $("#searchBox").val();
-          if (searchText === '') {
-            $('#dataGrid').hide();
-            clearGrid();
-            return;
-          }
-          var searchResults = filterData(searchText);
+    form {
+      background-color: lightgray;
+      padding: 1rem;
+      border: 1px solid grey;
+    }
+
+    .form-container,
+    .table-container {
+      width: 50%;
+    }
+  </style>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+  <div class="form-container">
+    <form>
+      <div class="form-group">
+        <input type="text" class="form-control" id="searchBox" placeholder="Search..." />
+      </div>
+      <input type="button" class="btn btn-primary" id="searchBtn" value="Search" />
+    </form>
+  </div>
+  <!-- <div class="table-container table-responsive"> -->
+  <div class="table-container">
+    <table class="table scrollable-table" id="dataGrid">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <form class="bg-light p-3 border">
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Name:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="name">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="age" class="col-sm-2 col-form-label">Age:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="age">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="email" class="col-sm-2 col-form-label">Email:</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="email">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    var data = [{
+      name: "Emily Davis",
+      age: 28
+    }, {
+      name: "Jacob Brown",
+      age: 40
+    }, {
+      name: "Michael Garcia",
+      age: 35
+    }, {
+      name: "Samantha Wilson",
+      age: 29
+    }, {
+      name: "Emily Rodriguez",
+      age: 21
+    }, {
+      name: "Joshua Hernandez",
+      age: 38
+    }, {
+      name: "Ashley Lopez",
+      age: 19
+    }, {
+      name: "Brian Gonzalez",
+      age: 42
+    }, {
+      name: "Amanda Perez",
+      age: 27
+    }
+      // more data here
+    ];
+    $(document).ready(function () {
+      $("#searchBtn").click(searchHandler);
+      $("#dataGrid tbody").on("click", "tr", rowClickHandler);
+
+      function searchHandler() {
+        var searchText = $("#searchBox").val();
+        if (searchText === '') {
+          $('#dataGrid').hide();
           clearGrid();
-          addRowsToGrid(searchResults.slice(0, 3));
-          if ($('#dataGrid tbody tr').length > 0) {
-            $('#dataGrid').show();
-          }
+          return;
         }
-
-        function filterData(searchText) {
-          return $.grep(data, function(item) {
-            return item.name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
-          });
+        var searchResults = filterData(searchText);
+        clearGrid();
+        addRowsToGrid(searchResults.slice(0, 3));
+        if ($('#dataGrid tbody tr').length <= 0) {
+          $('#dataGrid').hide();
+          alert("No matches found.");
+        } else {
+          $('#dataGrid').show();
         }
+      }
+      function filterData(searchText) {
+        return $.grep(data, function (item) {
+          return item.name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
+        });
+      }
 
-        function clearGrid() {
-          $("#dataGrid tbody").empty();
-        }
+      function clearGrid() {
+        $("#dataGrid tbody").empty();
+      }
 
-        function addRowsToGrid(searchResults) {
-          for (var i = 0; i < searchResults.length; i++) {
-            var row = "    <tr> " +
+      function addRowsToGrid(searchResults) {
+        for (var i = 0; i < searchResults.length; i++) {
+          var row = "    <tr> " +
             "    <td> " + searchResults[i].name + " </td>" +
             "    <td> " + searchResults[i].age + " </td>" + "    </tr>";
-            $("#dataGrid tbody").append(row);
+          $("#dataGrid tbody").append(row);
+        }
+      }
+
+      function rowClickHandler() {
+        //Remove the selected class from all rows
+        $("#dataGrid tbody tr").removeClass("selected");
+        //Add the selected class to the current row
+        $(this).addClass("selected");
+        //Populate the form fields with the data from the selected row
+        $("#name").val($(this).find("td:eq(0)").text());
+        $("#age").val($(this).find("td:eq(1)").text());
+      }
+      $('#dataGrid').hide();
+
+      $(document).keyup(function (event) {
+        var selectedRow = $("#dataGrid tbody tr.selected");
+        if (event.keyCode === 38) { // up arrow key
+          if (selectedRow.prev().length) {
+            selectedRow.removeClass("selected");
+            selectedRow = selectedRow.prev().addClass("selected");
+            populateForm(selectedRow);
           }
-        }
-
-        function rowClickHandler() {
-          //Remove the selected class from all rows
-          $("#dataGrid tbody tr").removeClass("selected");
-          //Add the selected class to the current row
-          $(this).addClass("selected");
-          //Populate the form fields with the data from the selected row
-          $("#name").val($(this).find("td:eq(0)").text());
-          $("#age").val($(this).find("td:eq(1)").text());
-        }
-        $('#dataGrid').hide();
-        
-        $(document).keyup(function(event) {
-          var selectedRow = $("#dataGrid tbody tr.selected");
-          if (event.keyCode === 38) { // up arrow key
-            if (selectedRow.prev().length) {
-              selectedRow.removeClass("selected");
-              selectedRow = selectedRow.prev().addClass("selected");
-              populateForm(selectedRow);
-            }
-          } else if (event.keyCode === 40) { // down arrow key
-            if (selectedRow.next().length) {
-              selectedRow.removeClass("selected");
-              selectedRow = selectedRow.next().addClass("selected");
-              populateForm(selectedRow);
-            }
-          } //else if (event.keyCode === 13) { // enter key
-          //   populateForm(selectedRow);
-          // }
-        });
-
-        function populateForm(selectedRow) {
-          var name = selectedRow.find("td:first").text();
-          var age = selectedRow.find("td:last").text();
-          $("#name").val(name);
-          $("#age").val(age);
-        }
-        async function sleep(ms) {
-          return new Promise(resolve => setTimeout(resolve, ms));
-        }
-        $("#searchBox").on("input", function() {
-          searchHandler();
-        });
+        } else if (event.keyCode === 40) { // down arrow key
+          if (selectedRow.next().length) {
+            selectedRow.removeClass("selected");
+            selectedRow = selectedRow.next().addClass("selected");
+            populateForm(selectedRow);
+          }
+        } //else if (event.keyCode === 13) { // enter key
+        //   populateForm(selectedRow);
+        // }
       });
-    </script>
-    <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-    <script>
-      window.ga = function() {
-        ga.q.push(arguments)
-      };
-      ga.q = [];
-      ga.l = +new Date;
-      ga('create', 'UA-XXXXX-Y', 'auto');
-      ga('set', 'anonymizeIp', true);
-      ga('set', 'transport', 'beacon');
-      ga('send', 'pageview')
-    </script>
-    <script src="https://www.google-analytics.com/analytics.js" async></script>
-  </body>
+
+      function populateForm(selectedRow) {
+        var name = selectedRow.find("td:first").text();
+        var age = selectedRow.find("td:last").text();
+        $("#name").val(name);
+        $("#age").val(age);
+      }
+      async function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      $("#searchBox").on("input", function () {
+        searchHandler();
+      });
+    });
+  </script>
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    window.ga = function () {
+      ga.q.push(arguments)
+    };
+    ga.q = [];
+    ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('set', 'transport', 'beacon');
+    ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
 </html>
