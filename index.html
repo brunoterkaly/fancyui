@@ -53,7 +53,7 @@
 </head>
 
 <body>
-<!-- 
+  <!-- 
   Search area
  -->
   <div class="form-container">
@@ -66,41 +66,58 @@
     </form>
   </div>
 
-<!-- 
+  <!-- 
   The search results table
  -->
   <!-- <div class="table-container table-responsive"> -->
   <div class="table-container">
-    <table class="table scrollable-table" id="dataGrid">
+    <table class="table scrollable-table" id="dataGrid"
+      style="border-left: 1px solid lightgrey; border-right: 1px solid lightgrey; border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey;">
+
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Age</th>
+          <th>EngineerName</th>
+          <th>Team</th>
+          <th>EngineeringEmail</th>
+          <th>EngineerDefaultHoursPerWeek</th>
+          <th>Manager</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
 
-<!-- 
+    <!-- 
   The Form that needs to save
  -->
     <form class="bg-light p-3 border">
       <div class="form-group row">
-        <label for="name" class="col-sm-2 col-form-label">Name:</label>
+        <label for="engineerName" class="col-sm-2 col-form-label">EngineerName:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="name">
+          <input type="text" class="form-control" id="engineerName">
         </div>
       </div>
       <div class="form-group row">
-        <label for="age" class="col-sm-2 col-form-label">Age:</label>
+        <label for="team" class="col-sm-2 col-form-label">Team:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="age">
+          <input type="text" class="form-control" id="team">
         </div>
       </div>
       <div class="form-group row">
-        <label for="email" class="col-sm-2 col-form-label">Email:</label>
+        <label for="engineeringEmail" class="col-sm-2 col-form-label">EngineeringEmail:</label>
         <div class="col-sm-10">
-          <input type="email" class="form-control" id="email">
+          <input type="email" class="form-control" id="engineeringEmail">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="engineerDefaultHoursPerWeek" class="col-sm-2 col-form-label">EngineerDefaultHoursPerWeek:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="engineerDefaultHoursPerWeek">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="manager" class="col-sm-2 col-form-label">Manager:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="manager">
         </div>
       </div>
       <div class="form-group row">
@@ -117,35 +134,77 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
     var data = [{
-      name: "Emily Davis",
-      age: 28
+      engineerName: "Emily Davis",
+      team: "Team A",
+      engineeringEmail: "emily.davis@example.com",
+      engineerDefaultHoursPerWeek: 40,
+      manager: "John Smith"
     }, {
-      name: "Jacob Brown",
-      age: 40
+      engineerName: "Jacob Brown",
+      team: "Team B",
+      engineeringEmail: "jacob.brown@example.com",
+      engineerDefaultHoursPerWeek: 35,
+      manager: "Jane Doe"
     }, {
-      name: "Michael Garcia",
-      age: 35
-    }, {
-      name: "Samantha Wilson",
-      age: 29
-    }, {
-      name: "Emily Rodriguez",
-      age: 21
-    }, {
-      name: "Joshua Hernandez",
-      age: 38
-    }, {
-      name: "Ashley Lopez",
-      age: 19
-    }, {
-      name: "Brian Gonzalez",
-      age: 42
-    }, {
-      name: "Amanda Perez",
-      age: 27
+      engineerName: "Michael Garcia",
+      team: "Team A",
+      engineeringEmail: "michael.garcia@example.com",
+      engineerDefaultHoursPerWeek: 38,
+      manager: "John Smith"
+    },
+    // more data here
+    {
+      engineerName: "Jane Smith",
+      team: "Team C",
+      engineeringEmail: "jane.smith@example.com",
+      engineerDefaultHoursPerWeek: 40,
+      manager: "Mike Johnson"
+    },
+    {
+      engineerName: "Mark Wilson",
+      team: "Team A",
+      engineeringEmail: "mark.wilson@example.com",
+      engineerDefaultHoursPerWeek: 37,
+      manager: "John Smith"
+    },
+    {
+      engineerName: "Emily Taylor",
+      team: "Team B",
+      engineeringEmail: "emily.taylor@example.com",
+      engineerDefaultHoursPerWeek: 35,
+      manager: "Jane Doe"
+    },
+    {
+      engineerName: "David Anderson",
+      team: "Team C",
+      engineeringEmail: "david.anderson@example.com",
+      engineerDefaultHoursPerWeek: 40,
+      manager: "Mike Johnson"
+    },
+    {
+      engineerName: "Brian Lee",
+      team: "Team A",
+      engineeringEmail: "brian.lee@example.com",
+      engineerDefaultHoursPerWeek: 38,
+      manager: "John Smith"
+    },
+    {
+      engineerName: "Sophia Perez",
+      team: "Team B",
+      engineeringEmail: "sophia.perez@example.com",
+      engineerDefaultHoursPerWeek: 35,
+      manager: "Jane Doe"
+    },
+    {
+      engineerName: "Joshua Rivera",
+      team: "Team C",
+      engineeringEmail: "joshua.rivera@example.com",
+      engineerDefaultHoursPerWeek: 40,
+      manager: "Mike Johnson"
     }
-      // more data here
     ];
+
+
     $(document).ready(function () {
       $("#searchBtn").click(searchHandler);
       $("#dataGrid tbody").on("click", "tr", rowClickHandler);
@@ -189,7 +248,10 @@
       }
       function filterData(searchText) {
         return $.grep(data, function (item) {
-          return item.name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
+          var lowercaseEngineerName = item.engineerName.toLowerCase();
+          var lowercaseSearchText = searchText.toLowerCase();
+          var index = lowercaseEngineerName.indexOf(lowercaseSearchText);
+          return index !== -1;
         });
       }
 
@@ -200,11 +262,16 @@
       function addRowsToGrid(searchResults) {
         for (var i = 0; i < searchResults.length; i++) {
           var row = "    <tr> " +
-            "    <td> " + searchResults[i].name + " </td>" +
-            "    <td> " + searchResults[i].age + " </td>" + "    </tr>";
+            "    <td> " + searchResults[i].engineerName + " </td>" +
+            "    <td> " + searchResults[i].team + " </td>" +
+            "    <td> " + searchResults[i].engineeringEmail + " </td>" +
+            "    <td> " + searchResults[i].engineerDefaultHoursPerWeek + " </td>" +
+            "    <td> " + searchResults[i].manager + " </td>" +
+            "    </tr>";
           $("#dataGrid tbody").append(row);
         }
       }
+
 
       function rowClickHandler() {
         //Remove the selected class from all rows
@@ -212,9 +279,13 @@
         //Add the selected class to the current row
         $(this).addClass("selected");
         //Populate the form fields with the data from the selected row
-        $("#name").val($(this).find("td:eq(0)").text());
-        $("#age").val($(this).find("td:eq(1)").text());
+        $("#engineerName").val($(this).find("td:eq(0)").text());
+        $("#team").val($(this).find("td:eq(1)").text());
+        $("#engineeringEmail").val($(this).find("td:eq(2)").text());
+        $("#engineerDefaultHoursPerWeek").val($(this).find("td:eq(3)").text());
+        $("#manager").val($(this).find("td:eq(4)").text());
       }
+
       $('#dataGrid').hide();
 
       $(document).keyup(function (event) {
@@ -237,11 +308,18 @@
       });
 
       function populateForm(selectedRow) {
-        var name = selectedRow.find("td:first").text();
-        var age = selectedRow.find("td:last").text();
-        $("#name").val(name);
-        $("#age").val(age);
+        var engineerName = selectedRow.find("td:first").text();
+        var team = selectedRow.find("td:nth-child(2)").text();
+        var engineeringEmail = selectedRow.find("td:nth-child(3)").text();
+        var engineerDefaultHoursPerWeek = selectedRow.find("td:nth-child(4)").text();
+        var manager = selectedRow.find("td:last").text();
+        $("#engineerName").val(engineerName);
+        $("#team").val(team);
+        $("#engineeringEmail").val(engineeringEmail);
+        $("#engineerDefaultHoursPerWeek").val(engineerDefaultHoursPerWeek);
+        $("#manager").val(manager);
       }
+
       async function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
       }
