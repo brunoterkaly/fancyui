@@ -204,29 +204,28 @@
     }
     ];
 
+    // +-----------------------------------+
+    // | 
+    // | Script area
+    // | 
+    // +-----------------------------------+
 
     $(document).ready(function () {
+      // +-----------------------------------+
+      // | 
+      // | Setup responses for search button 
+      // | and body of table clicks 
+      // | 
+      // +-----------------------------------+
+
       $("#searchBtn").click(searchHandler);
       $("#dataGrid tbody").on("click", "tr", rowClickHandler);
 
-      function searchHandlerOld() {
-        var searchText = $("#searchBox").val();
-        if (searchText === '') {
-          $('#dataGrid').hide();
-          clearGrid();
-          return;
-        }
-        var searchResults = filterData(searchText);
-        clearGrid();
-        addRowsToGrid(searchResults.slice(0, 3));
-        if ($('#dataGrid tbody tr').length <= 0) {
-          $('#dataGrid').hide();
-          $("#error-message").text("No matches found.").show();
-        } else {
-          $('#dataGrid').show();
-          $("#error-message").hide();
-        }
-      }
+      // +-----------------------------------+
+      // | Hide table if no results or
+      // | search is empty
+      // +-----------------------------------+
+
       function searchHandler() {
         var searchText = $("#searchBox").val();
         if (searchText === '') {
@@ -246,6 +245,12 @@
           $("#error-message").hide();
         }
       }
+      // +-----------------------------------+
+      // | 
+      // | See if data match
+      // | 
+      // +-----------------------------------+
+
       function filterData(searchText) {
         return $.grep(data, function (item) {
           var lowercaseEngineerName = item.engineerName.toLowerCase();
@@ -254,10 +259,19 @@
           return index !== -1;
         });
       }
-
+      // +-----------------------------------+
+      // | 
+      // | Clear the table
+      // | 
+      // +-----------------------------------+
       function clearGrid() {
         $("#dataGrid tbody").empty();
       }
+      // +-----------------------------------+
+      // | 
+      // | Loop through data and add to table
+      // | 
+      // +-----------------------------------+
 
       function addRowsToGrid(searchResults) {
         for (var i = 0; i < searchResults.length; i++) {
@@ -271,8 +285,11 @@
           $("#dataGrid tbody").append(row);
         }
       }
-
-
+      // +-----------------------------------+
+      // | 
+      // | If row in table selected, populate form
+      // | 
+      // +-----------------------------------+
       function rowClickHandler() {
         //Remove the selected class from all rows
         $("#dataGrid tbody tr").removeClass("selected");
@@ -285,9 +302,16 @@
         $("#engineerDefaultHoursPerWeek").val($(this).find("td:eq(3)").text());
         $("#manager").val($(this).find("td:eq(4)").text());
       }
-
+      // +-----------------------------------+
+      // | 
+      // | Start with data grid hidden
+      // | 
+      // +-----------------------------------+
       $('#dataGrid').hide();
-
+      // +-----------------------------------+
+      // | Respond to arrow keys to navigate |
+      // | table                             |
+      // +-----------------------------------+
       $(document).keyup(function (event) {
         var selectedRow = $("#dataGrid tbody tr.selected");
         if (event.keyCode === 38) { // up arrow key
@@ -307,6 +331,12 @@
         // }
       });
 
+      // +-----------------------------------+
+      // | 
+      // | Fill form based on data selected 
+      // | 
+      // +-----------------------------------+
+
       function populateForm(selectedRow) {
         var engineerName = selectedRow.find("td:first").text();
         var team = selectedRow.find("td:nth-child(2)").text();
@@ -319,13 +349,25 @@
         $("#engineerDefaultHoursPerWeek").val(engineerDefaultHoursPerWeek);
         $("#manager").val(manager);
       }
-
+      // +-----------------------------------+
+      // | 
+      // | Sleep function
+      // | 
+      // +-----------------------------------+
       async function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
       }
       $("#searchBox").on("input", function () {
         searchHandler();
       });
+
+      // $(document).ready(function () {
+      //   $('*').each(function () {
+      //     console.log($(this).attr('id'));
+      //   });
+      // });
+
+
     });
   </script>
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
