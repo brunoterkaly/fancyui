@@ -100,8 +100,12 @@
       </div>
       <div class="form-group row">
         <label for="team" class="col-sm-3 col-form-label">Team:</label>
-        <div class="col-sm-9">
+        <!-- <div class="col-sm-9">
           <input type="text" class="form-control" id="team">
+        </div> -->
+        <div class="col-sm-9">
+          <select class="form-control" id="team">
+          </select>
         </div>
       </div>
       <div class="form-group row">
@@ -111,15 +115,18 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="engineerDefaultHoursPerWeek" class="col-sm-3 col-form-label" title="Default is 60% of 40 hour week or 24 hours">HoursPerWeek:</label>
+        <label for="engineerDefaultHoursPerWeek" class="col-sm-3 col-form-label"
+          title="Default is 60% of 40 hour week or 24 hours">HoursPerWeek:</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="engineerDefaultHoursPerWeek" title="Default is 60% of 40 hour week or 24 hours">
+          <input type="text" class="form-control" id="engineerDefaultHoursPerWeek"
+            title="Default is 60% of 40 hour week or 24 hours">
         </div>
       </div>
       <div class="form-group row">
         <label for="manager" class="col-sm-3 col-form-label">Manager:</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="manager">
+          <select class="form-control" id="manager">
+          </select>
         </div>
       </div>
       <div class="form-group row">
@@ -136,75 +143,80 @@
   <script>
     var data = [{
       engineerName: "Emily Davis",
-      team: "Team A",
+      team: "SAP",
       engineeringEmail: "emily.davis@example.com",
       engineerDefaultHoursPerWeek: 40,
-      manager: "John Smith"
+      manager: "Telmo Sampaio"
     }, {
       engineerName: "Jacob Brown",
-      team: "Team B",
+      team: "Fed",
       engineeringEmail: "jacob.brown@example.com",
       engineerDefaultHoursPerWeek: 35,
-      manager: "Jane Doe"
+      manager: "Bruno Terkaly"
     }, {
       engineerName: "Michael Garcia",
-      team: "Team A",
+      team: "Data",
       engineeringEmail: "michael.garcia@example.com",
       engineerDefaultHoursPerWeek: 38,
-      manager: "John Smith"
+      manager: "Becky Guidry"
     },
     // more data here
     {
       engineerName: "Jane Smith",
-      team: "Team C",
+      team: "Core",
       engineeringEmail: "jane.smith@example.com",
       engineerDefaultHoursPerWeek: 40,
-      manager: "Mike Johnson"
+      manager: "Andrew Nathan"
     },
     {
       engineerName: "Mark Wilson",
-      team: "Team A",
+      team: "Data",
       engineeringEmail: "mark.wilson@example.com",
       engineerDefaultHoursPerWeek: 37,
-      manager: "John Smith"
+      manager: "Ajay Shukla"
     },
     {
       engineerName: "Emily Taylor",
-      team: "Team B",
+      team: "SAP",
       engineeringEmail: "emily.taylor@example.com",
       engineerDefaultHoursPerWeek: 35,
-      manager: "Jane Doe"
+      manager: "Colin Cole"
     },
     {
       engineerName: "David Anderson",
-      team: "Team C",
+      team: "AppDev",
       engineeringEmail: "david.anderson@example.com",
       engineerDefaultHoursPerWeek: 40,
-      manager: "Mike Johnson"
+      manager: "Khurram Mohammed"
     },
     {
       engineerName: "Brian Lee",
-      team: "Team A",
+      team: "Fed",
       engineeringEmail: "brian.lee@example.com",
       engineerDefaultHoursPerWeek: 38,
-      manager: "John Smith"
+      manager: "Alex Morales"
     },
     {
       engineerName: "Sophia Perez",
-      team: "Team B",
+      team: "Core",
       engineeringEmail: "sophia.perez@example.com",
       engineerDefaultHoursPerWeek: 35,
-      manager: "Jane Doe"
+      manager: "Walter Myers"
     },
     {
       engineerName: "Joshua Rivera",
-      team: "Team C",
+      team: "AppDev",
       engineeringEmail: "joshua.rivera@example.com",
       engineerDefaultHoursPerWeek: 40,
-      manager: "Mike Johnson"
+      manager: "Thiago Rotta"
     }
     ];
+    var teams = ["AppDev", "Core", "Data", "Fed", "SAP"];
+    var managers = ["Ajay Shukla", "Alex Morales", "Andrew Nathan", "Becky Guidry", "Bruno Terkaly",
+      "Colin Cole", "Donna Najafi", "Kashif Alam", "Khurram Mohammed", "Michelle Swann-Renee",
+      "Telmo Sampaio", "Thiago Rotta", "Walter Myers", "Donald Hicks"];
 
+    //for (var i = 0; i < teams.length; i++) { console.log(teams[i]); }
     // +-----------------------------------+
     // | 
     // | Script area
@@ -221,15 +233,18 @@
 
       $("#searchBtn").click(searchHandler);
       $("#dataGrid tbody").on("click", "tr", rowClickHandler);
+      fillOptions("#team", teams)
+      fillOptions("#manager", managers)
 
-      // +-----------------------------------+
-      // | 
-      // | Tool tips 
-      // | 
-      // +-----------------------------------+
+      function fillOptions(select, options) {
+        $.each(options, function (index, option) {
+          $(select).append("<option value='" + option + "'>" + option + "</option>");
+        });
+      }
 
-      // $("#engineerDefaultHoursPerWeek").attr("title", "Default is 60% of 40 hour week or 24 hours");
-      //$("#engineerDefaultHoursPerWeek").tooltip();
+      function fillRandomManagers() {
+
+      }
 
       // +-----------------------------------+
       // | Hide table if no results or
@@ -309,10 +324,11 @@
         $(this).addClass("selected");
         //Populate the form fields with the data from the selected row
         $("#engineerName").val($(this).find("td:eq(0)").text());
-        $("#team").val($(this).find("td:eq(1)").text());
+        //$("#team").val($(this).find("td:eq(1)").text());
+        $("#team option[value='" + $(this).find("td:eq(1)").text().trim() + "']").prop("selected", true);
         $("#engineeringEmail").val($(this).find("td:eq(2)").text());
         $("#engineerDefaultHoursPerWeek").val($(this).find("td:eq(3)").text());
-        $("#manager").val($(this).find("td:eq(4)").text());
+        $("#manager option[value='" + $(this).find("td:eq(4)").text().trim() + "']").prop("selected", true);
       }
       // +-----------------------------------+
       // | 
@@ -351,16 +367,16 @@
       // +-----------------------------------+
 
       function populateForm(selectedRow) {
-        var engineerName = selectedRow.find("td:first").text();
-        var team = selectedRow.find("td:nth-child(2)").text();
-        var engineeringEmail = selectedRow.find("td:nth-child(3)").text();
-        var engineerDefaultHoursPerWeek = selectedRow.find("td:nth-child(4)").text();
-        var manager = selectedRow.find("td:last").text();
+        var engineerName = selectedRow.find("td:first").text().trim();
+        var team = selectedRow.find("td:nth-child(2)").text().trim();
+        var engineeringEmail = selectedRow.find("td:nth-child(3)").text().trim();
+        var engineerDefaultHoursPerWeek = selectedRow.find("td:nth-child(4)").text().trim();
+        var manager = selectedRow.find("td:last").text().trim();
         $("#engineerName").val(engineerName);
-        $("#team").val(team);
+        $("#team option[value='" + team + "']").prop("selected", true);
         $("#engineeringEmail").val(engineeringEmail);
         $("#engineerDefaultHoursPerWeek").val(engineerDefaultHoursPerWeek);
-        $("#manager").val(manager);
+        $("#manager option[value='" + manager + "']").prop("selected", true);
       }
       // +-----------------------------------+
       // | 
@@ -414,6 +430,7 @@
         }
         if (isValid) {
           // submit the form
+          alert('Valid data!');
         }
       });
       function validateName(name) {
