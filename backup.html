@@ -3,8 +3,8 @@
 
 <head>
   <style>
-    /* Center container elements */
-    .form-container,
+     /* Center container elements */
+     .form-container,
     .table-container {
       display: flex;
       justify-content: center;
@@ -42,19 +42,6 @@
       padding: 1rem;
       border: 1px solid grey;
     }
-
-    .container {
-      display: flex;
-    }
-
-    .box {
-      width: 300px;
-      height: 300px;
-    }
-
-    table {
-      width: 100%;
-    }
   </style>
   <meta charset="utf-8">
   <title></title>
@@ -67,74 +54,146 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="apple-touch-icon" href="icon.png">
   <!-- Place favicon.ico in the root directory -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <meta name="theme-color" content="#fafafa">
 </head>
 
 <body>
+  <!-- 
+  Search area
+ -->
+  <div class="form-container">
+    <form>
+      <div class="form-group">
+        <input type="text" class="form-control" id="searchBox" placeholder="Search..." />
+      </div>
+      <input type="button" class="btn btn-primary" id="searchBtn" value="Search" />
+      <span id="error-message" style="color: red; display: none; margin-left: 8px; font-weight: 700;"></span>
+    </form>
+  </div>
+  <!-- 
+  The search results table
+ -->
+  <div class="table-container">
+    <table class="table scrollable-table" id="dataGrid">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <!-- 
+  The Form that needs to save
+ -->
+  <div class="form-container">
+    <form class="bg-light p-3 border">
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Name:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="name">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="age" class="col-sm-2 col-form-label">Age:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="age">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="email" class="col-sm-2 col-form-label">Email:</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="email">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
 
 
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
-        <table class="table d-block">
-          <thead>
-            <tr>
-              <th>Column 1</th>
-              <th>Column 2</th>
-              <th>Column 3</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Data 1</td>
-              <td>Data 2</td>
-              <td>Data 3</td>
-            </tr>
-            <tr>
-              <td>Data 4</td>
-              <td>Data 5</td>
-              <td>Data 6</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Div 1</h5>
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control" id="searchBox" placeholder="Search..." />
+              </div>
+              <input type="button" class="btn btn-primary" id="searchBtn" value="Search" />
+              <span id="error-message" style="color: red; display: none; margin-left: 8px; font-weight: 700;"></span>
+            </form>
+            <p class="card-text">This is the first div and it will have the same width as the other divs in the same row.</p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <table class="table d-block">
-          <thead>
-            <tr>
-              <th>Column A</th>
-              <th>Column B</th>
-              <th>Column C</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Data A</td>
-              <td>Data B</td>
-              <td>Data C</td>
-            </tr>
-            <tr>
-              <td>Data D</td>
-              <td>Data E</td>
-              <td>Data F</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Div 2</h5>
+            <table class="table scrollable-table" id="dataGrid">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Age</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+            <p class="card-text">This is the second div and it will have the same width as the other divs in the same row.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Div 3</h5>
+            <form class="bg-light p-3 border">
+              <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Name:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="name">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="age" class="col-sm-2 col-form-label">Age:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="age">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">Email:</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="email">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </form>
+            <p class="card-text">This is the third div and it will have the same width as the other divs in the same row.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-
-
-
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
     var data = [{
       name: "Emily Davis",
